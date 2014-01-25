@@ -37,6 +37,8 @@ namespace Queuer
         private bool isAnyRegex;
         Nullable<bool> selectedFile;
         private FileReader fileReader;
+        List<MachineDescription> machineDescriptions;
+        QueueSystemDrawer queueSystemDrawer;
 
         #endregion Enums of MainWindow (6)
 
@@ -51,6 +53,9 @@ namespace Queuer
             selectedFile = false;
             fileDialog = null;
             fileReader = new FileReader();
+            // load default system
+            machineDescriptions = fileReader.ReadFile(); 
+            queueSystemDrawer = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem);
         }
 
         #endregion Constructors of MainWindow (1)
@@ -60,8 +65,10 @@ namespace Queuer
         private void ButtonOpenFile_Click(object sender, RoutedEventArgs e)
         {
             fileReader.InputFileName = getFileName();
-            List<MachineDescription> machineDescriptions = fileReader.ReadFile();
-            QueueSystemDrawer sd = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem);
+            //List<MachineDescription> machineDescriptions = fileReader.ReadFile();
+            machineDescriptions = fileReader.ReadFile();
+            CanvasQueueSystem.Children.Clear();
+            queueSystemDrawer = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem);
             RichTextBoxInput.Document.Blocks.Clear();
             RichTextBoxInput.AppendText(File.ReadAllText(fileReader.InputFileName));
             isAnyInput = true;

@@ -2,53 +2,42 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Queuer"
-        Width="919.03"
-        Height="543">
-    <Grid Height="501"
+        Width="1154.03"
+        Height="631">
+    <Grid Height="589"
           Margin="0,0,-320,12"
           VerticalAlignment="Bottom">
         <Grid.RowDefinitions>
             <RowDefinition Height="92*" />
             <RowDefinition Height="409*" />
         </Grid.RowDefinitions>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="22" Margin="0,36,0,0" Stroke="Black" VerticalAlignment="Top" Width="1148"/>
         <Button x:Name="ButtonOpenFile"
                 Width="111"
-                Margin="32,67,0,0"
+                Margin="0,36,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="ButtonOpenFile_Click"
                 Content="Select file" />
-        <Label Margin="32,41,0,0"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               Content="Input"
-               FontWeight="Bold" />
         <Button x:Name="ButtonSaveAs"
-                Grid.Row="1"
-                Width="111"
-                Margin="252,349,0,0"
+                Width="49"
+                Margin="259,36,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="ButtonSaveAs_Click"
                 Content="Save As" />
         <Button x:Name="ButtonStart"
-                Width="111"
-                Margin="167,72,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Click="ButtonStart_Click"
-                Content="Start" Grid.RowSpan="2" />
-        <Label
-               Margin="178,41,0,0"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               Content="Start simulation"
-               FontWeight="Bold" />
+    		Width="111"
+    		Margin="111,36,0,0"
+    		HorizontalAlignment="Left"
+    		VerticalAlignment="Top"
+    		Click="ButtonStart_Click"
+    		Content="Start simulation" />
         <RichTextBox x:Name="RichTextBoxInput"
                      Grid.Row="1"
-                     Width="412"
-                     Height="98"
-                     Margin="31,83,0,0"
+                     Width="292"
+                     Height="122"
+                     Margin="31,0,0,0"
                      HorizontalAlignment="Left"
                      VerticalAlignment="Top"
                      Block.LineHeight="12"
@@ -63,9 +52,9 @@
         </RichTextBox>
         <RichTextBox x:Name="RichTextBoxOutput"
                      Grid.Row="1"
-                     Width="412"
-                     Height="98"
-                     Margin="31,208,0,0"
+                     Width="292"
+                     Height="237"
+                     Margin="31,171,0,0"
                      HorizontalAlignment="Left"
                      VerticalAlignment="Top"
                      GotFocus="RichTextBoxOutput_GotFocus"
@@ -79,40 +68,33 @@
             </FlowDocument>
         </RichTextBox>
         <Button x:Name="ButtonSave"
-                Grid.Row="1"
-                Width="111"
-                Margin="111,349,0,0"
+                Width="37"
+                Margin="222,36,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="ButtonSave_Click"
                 Content="Save" />
         <Label Grid.Row="1"
-               Margin="31,178,0,0"
+               Margin="31,140,0,0"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"
                Content="Output"
                FontWeight="Bold" />
-        <Label Grid.Row="1"
-               Margin="31,52,0,0"
+        <Label
+               Margin="31,72,0,0"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"
                Content="Input"
                FontWeight="Bold" />
         <Label Grid.Row="1"
-               Margin="200,309,0,0"
+               Width="277"
+               Height="47"
+               Margin="31,413,0,0"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"
-               Content="Save output"
-               FontWeight="Bold" />
-        <Label Grid.Row="1"
-               Width="369"
-               Height="26"
-               Margin="74,383,0,0"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               Content="/Everybody stand back/ I know regular expressions! - Chuck Norris" />
+               Content="/Everybody stand back/&#xD;&#xA; I know regular expressions! - Chuck Norris" />
         <!-- Region Menu -->
-        <Menu Width="515"
+        <Menu Width="1148"
               Height="28"
               Margin="0,8,0,0"
               HorizontalAlignment="Left"
@@ -144,49 +126,7 @@
                 <MenuItem Header="_About" />
             </MenuItem>
         </Menu>
-        <TextBox x:Name="TBName" HorizontalAlignment="Left" Height="23" Margin="602,27,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="TBSlots" HorizontalAlignment="Left" Height="23" Margin="750,27,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="TBQueueSize" HorizontalAlignment="Left" Height="23" Margin="602,83,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Label
-        	Margin="637,88,0,0"
-        	HorizontalAlignment="Left"
-        	VerticalAlignment="Top"
-        	Content="Name"
-        	FontWeight="Bold" Grid.RowSpan="2" />
-        <Label
-        	Margin="792,88,0,0"
-        	HorizontalAlignment="Left"
-        	VerticalAlignment="Top"
-        	Content="Slots"
-        	FontWeight="Bold" Grid.RowSpan="2" />
-        <Label
-        	Margin="622,55,0,0"
-        	HorizontalAlignment="Left"
-        	VerticalAlignment="Top"
-        	Content="Queue size&#xD;&#xA;"
-        	FontWeight="Bold" Grid.Row="1" />
-        <TextBox x:Name="TBSlots_Copy" HorizontalAlignment="Left" Height="23" Margin="750,83,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="TBQueueSize_Copy" HorizontalAlignment="Left" Height="23" Margin="602,138,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="TBSlots_Copy1" HorizontalAlignment="Left" Height="23" Margin="750,138,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Label
-        	Margin="758,55,0,0"
-        	HorizontalAlignment="Left"
-        	VerticalAlignment="Top"
-        	Content="Queue size&#xA;"
-        	FontWeight="Bold" Grid.Row="1" />
-        <Label
-        	Margin="622,111,0,0"
-        	HorizontalAlignment="Left"
-        	VerticalAlignment="Top"
-        	Content="Queue discipline&#xA;"
-        	FontWeight="Bold" Grid.Row="1" />
-        <Label
-        	Margin="758,111,0,0"
-        	HorizontalAlignment="Left"
-        	VerticalAlignment="Top"
-        	Content="Service mechanism&#xA;"
-        	FontWeight="Bold" Grid.Row="1" />
-        <Canvas x:Name="CanvasQueueSystem" HorizontalAlignment="Left" Height="193" Margin="515,178,0,0" Grid.Row="1" VerticalAlignment="Top" Width="355"/>
+        <Canvas x:Name="CanvasQueueSystem" HorizontalAlignment="Left" Height="481" Margin="343,87,0,0" VerticalAlignment="Top" Width="776" Grid.RowSpan="2" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}"/>
         <!-- End Region -->
     </Grid>
     <Window.CommandBindings>
