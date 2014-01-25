@@ -51,8 +51,6 @@ namespace Queuer
             selectedFile = false;
             fileDialog = null;
             fileReader = new FileReader();
-            List<MachineDescription> machineDescriptions = fileReader.ReadFile();
-            QueueSystemDrawer sd = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem);
         }
 
         #endregion Constructors of MainWindow (1)
@@ -62,6 +60,8 @@ namespace Queuer
         private void ButtonOpenFile_Click(object sender, RoutedEventArgs e)
         {
             fileReader.InputFileName = getFileName();
+            List<MachineDescription> machineDescriptions = fileReader.ReadFile();
+            QueueSystemDrawer sd = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem);
             RichTextBoxInput.Document.Blocks.Clear();
             RichTextBoxInput.AppendText(File.ReadAllText(fileReader.InputFileName));
             isAnyInput = true;
@@ -70,17 +70,13 @@ namespace Queuer
 
 
         /// <summary>
-        /// Handles the Click event of the ButtonParse control.
+        /// Handles the Click event of the ButtonStart control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void ButtonParse_Click(object sender, RoutedEventArgs e)
+        private void ButtonStart_Click(object sender, RoutedEventArgs e)
         {
-            //string regex = @"-+(\r\n|\n|\r)[\w /]*(\r\n|\n|\r)-+";
-
-            Regex regex = new Regex(TextBoxRegex.Text);
-            foreach (Match match in regex.Matches(StringFromRichTextBox(RichTextBoxInput)))
-                RichTextBoxOutput.AppendText(match.Value + "\n");
+            ; // TODO
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
@@ -289,15 +285,6 @@ namespace Queuer
             }
         }
 
-        private void TextBoxRegex_GotFocus(object sender, RoutedEventArgs e)
-        {
-            TextBoxGotFocus(TextBoxRegex, ref isAnyRegex);
-        }
-
-        private void TextBoxRegex_LostFocus(object sender, RoutedEventArgs e)
-        {
-            TextBoxLostFocus(TextBoxRegex, out isAnyRegex, "Enter a regular expression");
-        }
 
         #endregion Methods of MainWindow (20)
 

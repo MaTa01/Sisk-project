@@ -23,26 +23,6 @@
                VerticalAlignment="Top"
                Content="Input"
                FontWeight="Bold" />
-        <Label Grid.Row="1"
-               Margin="32,2,0,0"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               Content="Regular expression"
-               FontWeight="Bold" />
-        <TextBox x:Name="TextBoxRegex"
-                 Grid.Row="1"
-                 Width="212"
-                 Height="22"
-                 Margin="32,28,0,0"
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Top"
-                 Background="White"
-                 Foreground="#7F000000"
-                 GotFocus="TextBoxRegex_GotFocus"
-                 LostFocus="TextBoxRegex_LostFocus"
-                 OpacityMask="Black"
-                 Text="Enter a regular expression "
-                 TextWrapping="Wrap" TextChanged="TextBoxRegex_TextChanged" />
         <Button x:Name="ButtonSaveAs"
                 Grid.Row="1"
                 Width="111"
@@ -51,19 +31,18 @@
                 VerticalAlignment="Top"
                 Click="ButtonSaveAs_Click"
                 Content="Save As" />
-        <Button x:Name="ButtonParse"
-                Grid.Row="1"
+        <Button x:Name="ButtonStart"
                 Width="111"
-                Margin="333,28,0,0"
+                Margin="167,72,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Click="ButtonParse_Click"
-                Content="Parse" />
-        <Label Grid.Row="1"
-               Margin="307,0,0,0"
+                Click="ButtonStart_Click"
+                Content="Start" Grid.RowSpan="2" />
+        <Label
+               Margin="178,41,0,0"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"
-               Content="Parse the input file content"
+               Content="Start simulation"
                FontWeight="Bold" />
         <RichTextBox x:Name="RichTextBoxInput"
                      Grid.Row="1"
@@ -159,7 +138,7 @@
                 <MenuItem Command="Delete" Header="_Delete" />
                 <MenuItem Command="SelectAll" Header="_Select All" />
                 <Separator />
-                <MenuItem Click="ButtonParse_Click" Header="_Parse" />
+                <!--<MenuItem Click="ButtonStart_Click" Header="_Parse" />-->
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="_About" />
