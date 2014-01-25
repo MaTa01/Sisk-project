@@ -20,7 +20,7 @@ namespace Queuer
 
         public FileReader()
         {
-            inputFileName = "machines.txt";
+            inputFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\data\\machines.txt");
         }
 
         public List<MachineDescription> ReadFile()
