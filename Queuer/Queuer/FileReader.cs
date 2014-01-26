@@ -75,16 +75,16 @@ namespace Queuer
             Regex regex = new Regex(@"\w*");
             Match match = regex.Match(queueDiscipline);
             if(match.Success)
-                description.QueueDiscipline = queueDiscipline;
+                description.ServiceDiscipline = queueDiscipline;
             else
-                description.QueueDiscipline = "INVALID_INPUT";
+                description.ServiceDiscipline = "INVALID_INPUT";
 
-            string  streamType = machineParams[4];
-            match = regex.Match(streamType);
+            string  serviceType = machineParams[4];
+            match = regex.Match(serviceType);
             if(match.Success)
-                description.StreamType = streamType;
+                description.ServiceType = serviceType;
             else
-                description.StreamType = "INVALID_INPUT";
+                description.ServiceType = "INVALID_INPUT";
 
             int  coordinateX;
             if(Int32.TryParse(machineParams[5], out coordinateX))
@@ -103,6 +103,18 @@ namespace Queuer
             else
             {
                 description.CoordinateY = -1;
+            }
+            int route;
+            for (int i = 7; i < machineParams.Length; i++)
+            {
+                if(Int32.TryParse(machineParams[i], out route))
+                {
+                    description.Routes.Add(route);
+                }
+                else
+                {
+                    description.Routes = null;
+                }
             }
             return description;
         }

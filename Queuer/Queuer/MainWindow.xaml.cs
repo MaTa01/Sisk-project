@@ -56,6 +56,7 @@ namespace Queuer
             // load default system
             machineDescriptions = fileReader.ReadFile(); 
             queueSystemDrawer = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem);
+            SetInput();
         }
 
         #endregion Constructors of MainWindow (1)
@@ -69,12 +70,18 @@ namespace Queuer
             machineDescriptions = fileReader.ReadFile();
             CanvasQueueSystem.Children.Clear();
             queueSystemDrawer = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem);
+            SetInput();
+        }
+
+        /// <summary>
+        /// Sets input of RichTextBoxInput
+        /// </summary>
+        private void SetInput()
+        {
             RichTextBoxInput.Document.Blocks.Clear();
             RichTextBoxInput.AppendText(File.ReadAllText(fileReader.InputFileName));
             isAnyInput = true;
         }
-
-
 
         /// <summary>
         /// Handles the Click event of the ButtonStart control.
