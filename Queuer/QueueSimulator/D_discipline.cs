@@ -13,7 +13,7 @@ namespace QueueSimulator
         {
             returnValue = D;
         }
-        public int getTime()
+        override public int getTime()
         {
             return returnValue;
         }

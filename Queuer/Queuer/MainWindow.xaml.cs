@@ -34,11 +34,11 @@ namespace Queuer
         SaveFileDialog fileDialog;
         private bool isAnyInput;
         private bool isAnyOutput;
-        private bool isAnyRegex;
         Nullable<bool> selectedFile;
         private FileReader fileReader;
         List<MachineDescription> machineDescriptions;
         QueueSystemDrawer queueSystemDrawer;
+        public bool inputError;
 
         #endregion Enums of MainWindow (6)
 
@@ -47,15 +47,15 @@ namespace Queuer
         public MainWindow()
         {
             InitializeComponent();
-            isAnyRegex = false;
             isAnyInput = false;
             isAnyOutput =false;
             selectedFile = false;
             fileDialog = null;
             fileReader = new FileReader();
             // load default system
-            machineDescriptions = fileReader.ReadFile(); 
-            queueSystemDrawer = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem);
+            machineDescriptions = fileReader.ReadFile();
+            inputError = fileReader.InputError;
+            queueSystemDrawer = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem, inputError);
             SetInput();
         }
 
@@ -68,10 +68,11 @@ namespace Queuer
             string fileName = getFileName();
             if (fileName != "")
             {
-                fileReader.InputFileName = getFileName();
+                fileReader.InputFileName = fileName;
+                inputError = fileReader.InputError;
                 machineDescriptions = fileReader.ReadFile();
                 CanvasQueueSystem.Children.Clear();
-                queueSystemDrawer = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem);
+                queueSystemDrawer = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem, fileReader.InputError);
                 SetInput();
             }
         }
@@ -309,7 +310,7 @@ namespace Queuer
             //fileReader.InputFileName = getFileName();
             machineDescriptions = fileReader.ReadFile();
             CanvasQueueSystem.Children.Clear();
-            queueSystemDrawer = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem);
+            queueSystemDrawer = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem, inputError);
             SetInput();
         }
 

@@ -9,6 +9,7 @@ namespace QueueSimulator
      */
     abstract class Discipline
     {
-        int getTime();
+        // Error	1	'QueueSimulator.Discipline.getTime()' must declare a body because it is not marked abstract, extern, or partial	D:\dev\cs\pwr\sisk\Sisk-project\Queuer\QueueSimulator\Discipline.cs	12	13	QueueSimulator
+        abstract public int getTime();
     }
 }

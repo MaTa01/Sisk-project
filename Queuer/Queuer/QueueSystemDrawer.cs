@@ -14,56 +14,63 @@ namespace Queuer
 {
     class QueueSystemDrawer
     {
-        public QueueSystemDrawer() {} 
-        public QueueSystemDrawer(List<MachineDescription> machineDescriptions, ref Canvas canvasMQueueSystem)
+        public QueueSystemDrawer() { }
+        public QueueSystemDrawer(List<MachineDescription> machineDescriptions, ref Canvas canvasMQueueSystem, bool inputError)
         {
-            DrawQueueSystem(machineDescriptions, ref canvasMQueueSystem);
+            DrawQueueSystem(machineDescriptions, ref canvasMQueueSystem, inputError);
         }
 
         // draw an entire quueueing system based on given parametres.
-        private void DrawQueueSystem(List<MachineDescription> machineDescriptions, ref Canvas canvasMQueueSystem)
+        private void DrawQueueSystem(List<MachineDescription> machineDescriptions, ref Canvas canvasMQueueSystem, bool inputError)
         {
-            int i = 0;
-            foreach (MachineDescription desc in machineDescriptions)
+            if (inputError)
             {
-                // could have used borders instead of rectangles alternatively
-                double rectWidth = 150;
-                double rectHeight = 140;
-                for (int j = 0; j < desc.SlotsNumber; j++)
-                    rectHeight += 16;
+                ShowErrorMessage(ref canvasMQueueSystem);
+            }
+            else
+            {
+                int i = 0;
+                foreach (MachineDescription desc in machineDescriptions)
+                {
+                    // could have used borders instead of rectangles alternatively
+                    double rectWidth = 150;
+                    double rectHeight = 140;
+                    for (int j = 0; j < desc.SlotsNumber; j++)
+                        rectHeight += 16;
 
-                Rectangle rect = CreateRectangle(rectWidth, rectHeight, desc.CoordinateX,
-                    desc.CoordinateY, 255, 255, 255, 0, Brushes.Black);
-                Grid grid = new Grid();
-                TextBlock textBlock = new TextBlock();
-                StringBuilder nodeProperties = GetNodeProperties(desc);
-                StringBuilder nodeState = new StringBuilder();
-                int servicedJobsNumber = 0; // TODO get actual data from QueueSimulator
-                int queueSize = 0; // TODO get actual data from QueueSimulator
-                nodeState.AppendLine("Queue size: " + queueSize);
-                for (int j = 0; j < desc.SlotsNumber; j++)
-                {
-                    nodeState.AppendLine("Submachine " + (j + 1) + ": " + servicedJobsNumber);
+                    Rectangle rect = CreateRectangle(rectWidth, rectHeight, desc.CoordinateX,
+                        desc.CoordinateY, 255, 255, 255, 0, Brushes.Black);
+                    Grid grid = new Grid();
+                    TextBlock textBlock = new TextBlock();
+                    StringBuilder nodeProperties = GetNodeProperties(desc);
+                    StringBuilder nodeState = new StringBuilder();
+                    int servicedJobsNumber = 0; // TODO get actual data from QueueSimulator
+                    int queueSize = 0; // TODO get actual data from QueueSimulator
+                    nodeState.AppendLine("Queue size: " + queueSize);
+                    for (int j = 0; j < desc.SlotsNumber; j++)
+                    {
+                        nodeState.AppendLine("Submachine " + (j + 1) + ": " + servicedJobsNumber);
+                    }
+                    //nodeState.AppendLine("
+                    string nodeMessage = nodeProperties.ToString() +
+                        "Current node state:\n" +
+                        nodeState.ToString();
+                    textBlock.Text = nodeMessage;
+                    textBlock.Margin = new Thickness(desc.CoordinateX + 5,
+                        desc.CoordinateY + 5, 0, 0);
+                    foreach (int route in desc.Routes)
+                    {
+                        Line line = CreateLineWithCentalCoordinates(
+                            desc.CoordinateX, desc.CoordinateY,
+                            machineDescriptions[route - 1].CoordinateX,
+                            machineDescriptions[route - 1].CoordinateY,
+                            rectWidth, rectHeight);
+                        canvasMQueueSystem.Children.Insert(0, line);
+                    }
+                    canvasMQueueSystem.Children.Add(rect);
+                    canvasMQueueSystem.Children.Add(textBlock);
+                    i++;
                 }
-                //nodeState.AppendLine("
-                string nodeMessage = nodeProperties.ToString() +
-                    "Current node state:\n" + 
-                    nodeState.ToString();
-                textBlock.Text = nodeMessage;
-                textBlock.Margin = new Thickness(desc.CoordinateX + 5,
-                    desc.CoordinateY + 5, 0, 0);
-                foreach (int route in desc.Routes)
-                {
-                    Line line = CreateLineWithCentalCoordinates(
-                        desc.CoordinateX, desc.CoordinateY,
-                        machineDescriptions[route - 1].CoordinateX,
-                        machineDescriptions[route - 1].CoordinateY,
-                        rectWidth, rectHeight);
-                    canvasMQueueSystem.Children.Insert(0, line);
-                }
-                canvasMQueueSystem.Children.Add(rect);
-                canvasMQueueSystem.Children.Add(textBlock);
-                i++;
             }
         }
 
@@ -136,6 +143,15 @@ namespace Queuer
             double centreXDest = coordinateXDest + rectWidth / 2.0;
             double centreYDest = coordinateYDest + rectHeight / 2.0;
             return CreateLine(centreX, centreY, centreXDest, centreYDest);
+        }
+        private void ShowErrorMessage(ref Canvas canvasMQueueSystem)
+        {
+
+            TextBlock textBlock = new TextBlock();
+            textBlock.Text = "Parsing a queue network configuration has failed.\nPlease validate the network configuration.";
+            canvasMQueueSystem.Children.Add(textBlock);
+            Canvas.SetLeft(textBlock, canvasMQueueSystem.Width / 2 - 150); 
+            Canvas.SetTop(textBlock, canvasMQueueSystem.Height / 2); 
         }
     }
 }
