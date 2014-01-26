@@ -8,33 +8,34 @@
           Margin="0,0,-320,12"
           VerticalAlignment="Bottom">
         <Grid.RowDefinitions>
-            <RowDefinition Height="92*" />
-            <RowDefinition Height="409*" />
+            <RowDefinition Height="0*" />
+            <RowDefinition Height="108*"/>
+            <RowDefinition Height="481*" />
         </Grid.RowDefinitions>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="22" Margin="0,36,0,0" Stroke="Black" VerticalAlignment="Top" Width="1148"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="22" Margin="0,36,0,0" Stroke="Black" VerticalAlignment="Top" Width="1148" Grid.RowSpan="2"/>
         <Button x:Name="ButtonOpenFile"
                 Width="111"
                 Margin="0,36,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="ButtonOpenFile_Click"
-                Content="Select file" />
+                Content="Open file" Grid.RowSpan="2" />
         <Button x:Name="ButtonSaveAs"
                 Width="49"
-                Margin="259,36,0,0"
+                Margin="148,36,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="ButtonSaveAs_Click"
-                Content="Save As" />
+                Content="Save As" Grid.RowSpan="2" />
         <Button x:Name="ButtonStart"
     		Width="111"
-    		Margin="111,36,0,0"
+    		Margin="197,36,0,0"
     		HorizontalAlignment="Left"
     		VerticalAlignment="Top"
     		Click="ButtonStart_Click"
-    		Content="Start simulation" />
+    		Content="Start simulation" Grid.RowSpan="2" />
         <RichTextBox x:Name="RichTextBoxInput"
-                     Grid.Row="1"
+                     Grid.Row="2"
                      Width="292"
                      Height="122"
                      Margin="31,0,0,0"
@@ -51,7 +52,7 @@
             </FlowDocument>
         </RichTextBox>
         <RichTextBox x:Name="RichTextBoxOutput"
-                     Grid.Row="1"
+                     Grid.Row="2"
                      Width="292"
                      Height="237"
                      Margin="31,171,0,0"
@@ -69,12 +70,12 @@
         </RichTextBox>
         <Button x:Name="ButtonSave"
                 Width="37"
-                Margin="222,36,0,0"
+                Margin="111,36,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="ButtonSave_Click"
-                Content="Save" />
-        <Label Grid.Row="1"
+                Content="Save" Grid.RowSpan="2" />
+        <Label Grid.Row="2"
                Margin="31,140,0,0"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"
@@ -85,8 +86,8 @@
                HorizontalAlignment="Left"
                VerticalAlignment="Top"
                Content="Input"
-               FontWeight="Bold" />
-        <Label Grid.Row="1"
+               FontWeight="Bold" Grid.RowSpan="2" />
+        <Label Grid.Row="2"
                Width="277"
                Height="47"
                Margin="31,413,0,0"
@@ -98,35 +99,15 @@
               Height="28"
               Margin="0,8,0,0"
               HorizontalAlignment="Left"
-              VerticalAlignment="Top">
+              VerticalAlignment="Top" Grid.RowSpan="2">
             <MenuItem Header="_File">
                 <MenuItem Click="ButtonOpenFile_Click" Header="_Open" />
                 <Separator />
                 <MenuItem Click="ButtonSave_Click" Header="_Save" />
                 <MenuItem Click="ButtonSaveAs_Click" Header="_Save As..." />
-                <Separator />
-                <MenuItem Command="Print" Header="_Print" />
-                <Separator />
-                <MenuItem Header="_Exit" />
-            </MenuItem>
-            <MenuItem Header="_Edit">
-                <MenuItem Command="Undo" Header="_Undo" />
-                <MenuItem Command="Redo" Header="_Redo" />
-                <Separator />
-                <MenuItem Command="Cut" Header="_Cut" />
-                <MenuItem Command="Copy" Header="_Copy" />
-                <MenuItem Command="Paste" Header="_Paste" />
-                <Separator />
-                <MenuItem Command="Delete" Header="_Delete" />
-                <MenuItem Command="SelectAll" Header="_Select All" />
-                <Separator />
-                <!--<MenuItem Click="ButtonStart_Click" Header="_Parse" />-->
-            </MenuItem>
-            <MenuItem Header="_Help">
-                <MenuItem Header="_About" />
             </MenuItem>
         </Menu>
-        <Canvas x:Name="CanvasQueueSystem" HorizontalAlignment="Left" Height="481" Margin="343,87,0,0" VerticalAlignment="Top" Width="776" Grid.RowSpan="2" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}"/>
+        <Canvas x:Name="CanvasQueueSystem" HorizontalAlignment="Left" Height="481" Margin="343,87,0,0" VerticalAlignment="Top" Width="776" Grid.RowSpan="3" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}"/>
         <!-- End Region -->
     </Grid>
     <Window.CommandBindings>
