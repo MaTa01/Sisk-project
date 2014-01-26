@@ -49,7 +49,7 @@ namespace Queuer
             InitializeComponent();
             isAnyRegex = false;
             isAnyInput = false;
-            isAnyOutput = false;
+            isAnyOutput =false;
             selectedFile = false;
             fileDialog = null;
             fileReader = new FileReader();
@@ -65,12 +65,15 @@ namespace Queuer
 
         private void ButtonOpenFile_Click(object sender, RoutedEventArgs e)
         {
-            fileReader.InputFileName = getFileName();
-            //List<MachineDescription> machineDescriptions = fileReader.ReadFile();
-            machineDescriptions = fileReader.ReadFile();
-            CanvasQueueSystem.Children.Clear();
-            queueSystemDrawer = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem);
-            SetInput();
+            string fileName = getFileName();
+            if (fileName != "")
+            {
+                fileReader.InputFileName = getFileName();
+                machineDescriptions = fileReader.ReadFile();
+                CanvasQueueSystem.Children.Clear();
+                queueSystemDrawer = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem);
+                SetInput();
+            }
         }
 
         /// <summary>
@@ -233,7 +236,8 @@ namespace Queuer
         private void Save(SaveFileDialog fileDialog)
         {
             string name = fileDialog.FileName;
-            File.WriteAllText(name, StringFromRichTextBox(RichTextBoxOutput));
+            File.WriteAllText(name, StringFromRichTextBox(RichTextBoxInput));
+            ReloadNetwork();
         }
 
         private bool SaveAs()
@@ -244,6 +248,7 @@ namespace Queuer
             fileDialog.Filter = "TXT Files (*.txt)|*.txt";
 
             selectedFile = fileDialog.ShowDialog();
+            fileReader.InputFileName = fileDialog.FileName;
             if (selectedFile == true)
             {
                 Save(fileDialog);
@@ -297,6 +302,15 @@ namespace Queuer
             {
                 isAnyContent = true;
             }
+        }
+
+        private void ReloadNetwork()
+        {
+            //fileReader.InputFileName = getFileName();
+            machineDescriptions = fileReader.ReadFile();
+            CanvasQueueSystem.Children.Clear();
+            queueSystemDrawer = new QueueSystemDrawer(machineDescriptions, ref CanvasQueueSystem);
+            SetInput();
         }
 
 
