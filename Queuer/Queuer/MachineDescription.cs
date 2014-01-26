@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Queuer
 {
-    class MachineDescription
+    public class MachineDescription
     {
         public int Id { get; set; }
         public int SlotsNumber { get; set; }  
