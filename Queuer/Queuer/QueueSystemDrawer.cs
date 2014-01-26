@@ -28,13 +28,28 @@ namespace Queuer
             {
                 // could have used borders instead of rectangles alternatively
                 double rectWidth = 150;
-                double rectHeight = 120;
+                double rectHeight = 140;
+                for (int j = 0; j < desc.SlotsNumber; j++)
+                    rectHeight += 16;
+
                 Rectangle rect = CreateRectangle(rectWidth, rectHeight, desc.CoordinateX,
                     desc.CoordinateY, 255, 255, 255, 0, Brushes.Black);
                 Grid grid = new Grid();
                 TextBlock textBlock = new TextBlock();
-                StringBuilder slotProperties = GetSlotProperties(desc);
-                textBlock.Text = slotProperties.ToString();
+                StringBuilder nodeProperties = GetNodeProperties(desc);
+                StringBuilder nodeState = new StringBuilder();
+                int servicedJobsNumber = 0; // TODO get actual data from QueueSimulator
+                int queueSize = 0; // TODO get actual data from QueueSimulator
+                nodeState.AppendLine("Queue size: " + queueSize);
+                for (int j = 0; j < desc.SlotsNumber; j++)
+                {
+                    nodeState.AppendLine("Submachine " + (j + 1) + ": " + servicedJobsNumber);
+                }
+                //nodeState.AppendLine("
+                string nodeMessage = nodeProperties.ToString() +
+                    "Current node state:\n" + 
+                    nodeState.ToString();
+                textBlock.Text = nodeMessage;
                 textBlock.Margin = new Thickness(desc.CoordinateX + 5,
                     desc.CoordinateY + 5, 0, 0);
                 foreach (int route in desc.Routes)
@@ -52,19 +67,23 @@ namespace Queuer
             }
         }
 
-        private StringBuilder GetSlotProperties(MachineDescription desc)
+        private StringBuilder GetNodeProperties(MachineDescription desc)
         {
             StringBuilder slotProperties = new StringBuilder();
             foreach (PropertyInfo property in desc.GetType().GetProperties())
             {
                 string line;
                 if (property.PropertyType == typeof(int))
+                {
+                    if (property.Name == "CoordinateX" || property.Name == "CoordinateY")
+                        continue;
                     line = Convert.ToString(property.GetValue(desc));
+                }
                 else if (property.PropertyType == typeof(double))
                     line = Convert.ToString(property.GetValue(desc, null));
                 else if (property.PropertyType == typeof(string))
                     line = Convert.ToString(property.GetValue(desc));
-                else 
+                else
                     line = "";
                 if (property.Name == "Id")
                     slotProperties.Append(property.Name + ": ");
@@ -75,13 +94,9 @@ namespace Queuer
                 else if (property.Name == "QueueSize")
                     slotProperties.Append("Queue size" + ": ");
                 else if (property.Name == "ServiceDiscipline")
-                    slotProperties.Append("Queue discipline" + ": ");
+                    slotProperties.Append("Service discipline" + ": ");
                 else if (property.Name == "ServiceType")
-                    slotProperties.Append("Stream type" + ": ");
-                else if (property.Name == "CoordinateX")
-                    slotProperties.Append("Position x" + ": ");
-                else if (property.Name == "CoordinateY")
-                    slotProperties.Append("Position y" + ": ");
+                    slotProperties.Append("Service type" + ": ");
                 slotProperties.AppendLine(line);
             }
             return slotProperties;

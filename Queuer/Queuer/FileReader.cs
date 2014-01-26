@@ -44,6 +44,7 @@ namespace Queuer
         {
             MachineDescription description = new MachineDescription();
             int id;
+            // TODO trim endline spaces, because if they show up, they are treated as an another parameter
             if(Int32.TryParse(machineParams[0], out id))
             {
                 description.Id = id;
