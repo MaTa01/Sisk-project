@@ -119,9 +119,20 @@ namespace Queuer
                 description.ServiceType = "INVALID_INPUT";
                 InputError = true;
             }
+            string  serviceTypeParameter = machineParams[6];
+            match = regex.Match(serviceTypeParameter);
+            if (match.Success)
+            {
+                description.ServiceTypeParameter = serviceTypeParameter;
+            }
+            else
+            {
+                description.ServiceType = "INVALID_INPUT";
+                InputError = true;
+            }
 
             int  coordinateX;
-            if(Int32.TryParse(machineParams[6], out coordinateX))
+            if(Int32.TryParse(machineParams[7], out coordinateX))
             {
                 description.CoordinateX = coordinateX;
             }
@@ -131,7 +142,7 @@ namespace Queuer
                 InputError = true;
             }
             int  coordinateY;
-            if(Int32.TryParse(machineParams[7], out coordinateY))
+            if(Int32.TryParse(machineParams[8], out coordinateY))
             {
                 description.CoordinateY = coordinateY;
             }
@@ -142,7 +153,7 @@ namespace Queuer
             }
             int destination;
             double probability;
-            for (int i = 8; i < machineParams.Length; i+=2)
+            for (int i = 9; i < machineParams.Length; i+=2)
             {
                 bool destinationParsed;
                 bool probabilityParsed;

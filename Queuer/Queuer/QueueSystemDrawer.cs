@@ -36,7 +36,7 @@ namespace Queuer
                 {
                     // could have used borders instead of rectangles alternatively
                     double rectWidth = 150;
-                    double rectHeight = 140;
+                    double rectHeight = 152;
                     for (int j = 0; j < desc.SlotsNumber; j++)
                         rectHeight += 16;
 
@@ -69,8 +69,8 @@ namespace Queuer
                             rectWidth, rectHeight);
                         canvasMQueueSystem.Children.Insert(0, line);
                         textBlockProbability.Margin = new Thickness(desc.CoordinateX +
-                            (machineDescriptions[route.Destination - 1].CoordinateX - desc.CoordinateX) / 2 + rectWidth / 2 + 10,
-                            desc.CoordinateY + (machineDescriptions[route.Destination - 1].CoordinateY - desc.CoordinateY) / 2 + rectHeight / 2 + 10,
+                            (machineDescriptions[route.Destination - 1].CoordinateX - desc.CoordinateX) / 2 + rectWidth / 2 + 5,
+                            desc.CoordinateY + (machineDescriptions[route.Destination - 1].CoordinateY - desc.CoordinateY) / 2 + rectHeight / 2 + 5,
                             0, 0);
                         textBlockProbability.Text = route.Probability.ToString();
                         canvasMQueueSystem.Children.Add(textBlockProbability);
@@ -114,6 +114,8 @@ namespace Queuer
                     slotProperties.Append("Service discipline" + ": ");
                 else if (property.Name == "ServiceType")
                     slotProperties.Append("Service type" + ": ");
+                else if (property.Name == "ServiceTypeParameter")
+                    slotProperties.Append("With parameter" + ": ");
                 slotProperties.AppendLine(line);
             }
             return slotProperties;
