@@ -11,25 +11,44 @@ namespace QueueSimulator
         int BufferSize;
         Queue<Task> Buffer; // Domyslnie Fifo
 
-        Task[] maszyny;
-        bool[] machineBusyState;
-
+        Task[] Slots;
+        bool[] MachineBusyStatus;
+        List<Route> routes;
         int NodeID;
 
         public Node(MachineDescription mDesc)
         {
             BufferSize = mDesc.QueueSize;
+            var f =  mDesc.ServiceDiscipline;
+            var x = mDesc.ServiceType;
+
+            routes = mDesc.Routes;
+
             Buffer = new Queue<Task>(BufferSize);
             
-            maszyny = new Task[mDesc.SlotsNumber];
-            machineBusyState = new bool[mDesc.SlotsNumber];
+            Slots = new Task[mDesc.SlotsNumber]; // ilosc slotow
+            MachineBusyStatus = new bool[mDesc.SlotsNumber];
 
-            for(int i=0;i<machineBusyState.Length;i++)
+            for(int i=0;i<MachineBusyStatus.Length;i++)
             {
-                machineBusyState[i] = false; // czy zajety
+                MachineBusyStatus[i] = false; // czy zajety
             }
 
             NodeID = mDesc.Id;
+
+            //nodeType - 0,1,2,3
+            // 0- pojedynczy node
+            // 1- poczatkowy
+            // 2-srodkowy
+            // 3- koncowy
+
+            //service dyspline - FIFO/LIFO/PS
+            // service Type - jaki jest rozklad obslugi 
+            
+            // E - exponential - lambda
+            // D - arbitralny - constant
+
+
         }
 
         /* Funkcje Podstawowe Bufora*/
@@ -69,7 +88,7 @@ namespace QueueSimulator
 
         public bool isAnyFreeMachine() // jestli jest wile maszyn to trzeba to sprawdzic
         {
-            foreach (bool b in machineBusyState)
+            foreach (bool b in MachineBusyStatus)
             {
                 if (b == true)
                 {
@@ -86,7 +105,7 @@ namespace QueueSimulator
 
         public bool isAnyInMachine()
         {
-            foreach (bool b in machineBusyState)
+            foreach (bool b in MachineBusyStatus)
             {
                 if (b == true)
                     return true;
@@ -102,12 +121,12 @@ namespace QueueSimulator
         {
             //if(isAnyFreeMachine()){ - to sprawdzamy pozom wyzej
             int i = 0;
-            foreach (bool b in machineBusyState)
+            foreach (bool b in MachineBusyStatus)
             {
                 if (b == false)
                 { // maszyna jest wolna
-                    maszyny[i] = t;
-                    machineBusyState[i] = true;
+                    Slots[i] = t;
+                    MachineBusyStatus[i] = true;
                     break;
                 }
 
@@ -118,14 +137,14 @@ namespace QueueSimulator
         public Task getReadyTaskFromMachine(int time) // oczywiscie czy cos jest na maszynie sprawdzAMY POZOM WYZEJ
         {   
             int i=0;
-            foreach (bool b in machineBusyState)
+            foreach (bool b in MachineBusyStatus)
             {
                 if (b == true)
                 {
-                    if (time == maszyny[i].getReadyTime())
+                    if (time == Slots[i].getReadyTime())
                     {
-                        machineBusyState[i] = false;
-                        return maszyny[i];
+                        MachineBusyStatus[i] = false;
+                        return Slots[i];
                     }
                 }
                 i++;
@@ -143,6 +162,14 @@ namespace QueueSimulator
         public void moveFromBufferToMachine(){
             this.addToMachine(this.getFromBuffer());
         }
-       
+        
+        public NodeStatus getNodeStatus(){
+            NodeStatus ns = new NodeStatus();
+            ns.numberOfJobsInQueue = this.BufferSize;
+            foreach(bool b in MachineBusyStatus){
+                ns.machineWorkingStatuses.Add(b);
+            }
+            return ns;
+        }
     }
 }

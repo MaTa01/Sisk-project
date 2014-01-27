@@ -16,12 +16,19 @@ namespace QueueSimulator
         {
             // TODO: Complete member initialization
             this.SystemTime = SystemTime;
-            this.ReadyTime = this.SystemTime + 60;
+            this.ReadyTime = this.SystemTime + 60; // to pomaga testy przejsc ale bedzie potrzaba jakos to rozwazyc
         }
 
         public int getReadyTime()
         {
             return ReadyTime;
         }
+
+        public int getCreationTime()
+        {
+            return SystemTime;
+        }
+
+        
     }
 }
