@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 
 using Queuer;
 
@@ -19,37 +19,41 @@ namespace QueueSimulator
         int SimulationTime;
 
         TaskGenerator generatorZadan;
-        List<MachineDescription> machines;
-        Queue<String> zadania;
+        List<Machine> machines;
+        
         PriorityQueue<int, Queue<SytemEvents>> kolejka;
         
-        public Simulator(List<MachineDescription> machinesInSystem, List<MachineConnections> connections){
+        public Simulator(List<MachineDescription> machinesInSystem,TaskGenerator taskGenerator){
 
             SimulationTime = 0;
             //tworzymy obiekt generatora zadań
 
-            int odstepyPomiedzyNowymiZadaniami = 60;
+            //int odstepyPomiedzyNowymiZadaniami = 60;
+
+            generatorZadan = taskGenerator;
             
-            generatorZadan = new TaskGenerator(odstepyPomiedzyNowymiZadaniami); // ten
-            this.machines = machinesInSystem;
+            this.machines = Machine.GetMachines(machinesInSystem); // z opisow tworzy liste maszyn
 
-
+            
         }
 
 
-        public void runSimulator()
+        public void runSimulator(int limitZadan = 0 ) // 
         {
             // generator Tworzy nowe zadanie
-            generatorZadan.getTask(SimulationTime);
-
+            Task firstTask =  generatorZadan.getTask(SimulationTime);
+            generatorZadan.setLimit(1);
             // tworzy sie nowye
 
+            while (true) // symulacja trwa do momentu zakonczenia przez jeden z waruków
+            {
+
+            }
+
         }
 
-        static void Main(string[] args)
-        {
-            //(new Simulator(machinesList, connectionList)).runSimulator();
 
-        }
+        
+       
     }
 }

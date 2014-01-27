@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CaseRunner.cs" />
     <Compile Include="Discipline.cs" />
     <Compile Include="D_discipline.cs" />
+    <Compile Include="InsideQueue.cs" />
     <Compile Include="Machine.cs" />
     <Compile Include="MachineConnections.cs" />
     <Compile Include="PriorityQueue.cs" />
