@@ -67,7 +67,12 @@ namespace Queuer
             int nodeType;
             if(Int32.TryParse(machineParams[1], out nodeType))
             {
-                description.SlotsNumber = nodeType;
+                description.NodeType = nodeType;
+            }
+            else
+            {
+                description.NodeType = -1;
+                InputError = true;
             }
             int slotsNumber;
             if(Int32.TryParse(machineParams[2], out slotsNumber))
