@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Queuer
 {
-    class FileReader
+    public class FileReader
     {
         private string inputFileName;
         public bool InputError { get; set; }

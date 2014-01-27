@@ -10,6 +10,8 @@ using System.Windows.Ink;
 using System.Windows;
 using System.Reflection;
 
+using QueueSimulator;
+
 namespace Queuer
 {
     class QueueSystemDrawer

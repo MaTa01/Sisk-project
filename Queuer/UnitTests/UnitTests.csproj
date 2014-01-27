@@ -55,10 +55,6 @@
     <Compile Include="TaskGeneratorTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Queuer\Queuer.csproj">
-      <Project>{6e645a9c-2020-413b-bef6-9535dfa07d49}</Project>
-      <Name>Queuer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\QueueSimulator\QueueSimulator.csproj">
       <Project>{ca22be49-cef4-4231-b7e9-4aa452dbb9a1}</Project>
       <Name>QueueSimulator</Name>

@@ -41,9 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileReader.cs" />
+    <Compile Include="MachineDescription.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="NodeStatus.cs" />
     <Compile Include="PriorityQueue.cs" />
+    <Compile Include="Route.cs" />
     <Compile Include="Simulator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Task.cs" />
@@ -51,12 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Queuer\Queuer.csproj">
-      <Project>{6e645a9c-2020-413b-bef6-9535dfa07d49}</Project>
-      <Name>Queuer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
