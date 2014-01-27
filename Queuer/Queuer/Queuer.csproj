@@ -75,6 +75,7 @@
     <Compile Include="FileReader.cs" />
     <Compile Include="MachineDescription.cs" />
     <Compile Include="QueueSystemDrawer.cs" />
+    <Compile Include="Route.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

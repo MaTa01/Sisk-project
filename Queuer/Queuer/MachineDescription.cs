@@ -10,15 +10,16 @@ namespace Queuer
     {
         public MachineDescription()
         {
-            Routes = new List<int>();
+            Routes = new List<Route>();
         }
         public int Id { get; set; }
+        public int NodeType { get; set; }
         public int SlotsNumber { get; set; }  
         public int QueueSize { get; set; }  
         public string ServiceDiscipline { get; set; }
         public string ServiceType { get; set; }
         public int CoordinateX { get; set; }
         public int CoordinateY { get; set; }
-        public List<int> Routes { get; set; }
+        public List<Route> Routes { get; set; }
     }
 }

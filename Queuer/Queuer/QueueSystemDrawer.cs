@@ -41,7 +41,6 @@ namespace Queuer
                     Rectangle rect = CreateRectangle(rectWidth, rectHeight, desc.CoordinateX,
                         desc.CoordinateY, 255, 255, 255, 0, Brushes.Black);
                     Grid grid = new Grid();
-                    TextBlock textBlock = new TextBlock();
                     StringBuilder nodeProperties = GetNodeProperties(desc);
                     StringBuilder nodeState = new StringBuilder();
                     int servicedJobsNumber = 0; // TODO get actual data from QueueSimulator
@@ -51,21 +50,27 @@ namespace Queuer
                     {
                         nodeState.AppendLine("Submachine " + (j + 1) + ": " + servicedJobsNumber);
                     }
-                    //nodeState.AppendLine("
                     string nodeMessage = nodeProperties.ToString() +
                         "Current node state:\n" +
                         nodeState.ToString();
+                    TextBlock textBlock = new TextBlock();
                     textBlock.Text = nodeMessage;
                     textBlock.Margin = new Thickness(desc.CoordinateX + 5,
                         desc.CoordinateY + 5, 0, 0);
-                    foreach (int route in desc.Routes)
+                    foreach (Route route in desc.Routes)
                     {
+                        TextBlock textBlockProbability = new TextBlock();
                         Line line = CreateLineWithCentalCoordinates(
                             desc.CoordinateX, desc.CoordinateY,
-                            machineDescriptions[route - 1].CoordinateX,
-                            machineDescriptions[route - 1].CoordinateY,
+                            machineDescriptions[route.Destination - 1].CoordinateX,
+                            machineDescriptions[route.Destination - 1].CoordinateY,
                             rectWidth, rectHeight);
                         canvasMQueueSystem.Children.Insert(0, line);
+                        // TODO positions of probability values need change
+                        //textBlockProbability.Margin = new Thickness(desc.CoordinateX + 
+                            //(machineDescriptions[route.Destination - 1].CoordinateX - desc.CoordinateX) / 2, desc.CoordinateY + (machineDescriptions[route.Destination - 1].CoordinateY - desc.CoordinateY) / 2, 0, 0);
+                        //textBlockProbability.Text = route.Probability.ToString();
+                        //canvasMQueueSystem.Children.Add(textBlockProbability);
                     }
                     canvasMQueueSystem.Children.Add(rect);
                     canvasMQueueSystem.Children.Add(textBlock);
@@ -82,7 +87,9 @@ namespace Queuer
                 string line;
                 if (property.PropertyType == typeof(int))
                 {
-                    if (property.Name == "CoordinateX" || property.Name == "CoordinateY")
+                    if (property.Name == "CoordinateX" || 
+                        property.Name == "CoordinateY" ||
+                        property.Name == "NodeType")
                         continue;
                     line = Convert.ToString(property.GetValue(desc));
                 }

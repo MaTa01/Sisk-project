@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -63,8 +64,13 @@ namespace Queuer
                 InputError = true;
                 return null;
             }
+            int nodeType;
+            if(Int32.TryParse(machineParams[1], out nodeType))
+            {
+                description.SlotsNumber = nodeType;
+            }
             int slotsNumber;
-            if(Int32.TryParse(machineParams[1], out slotsNumber))
+            if(Int32.TryParse(machineParams[2], out slotsNumber))
             {
                 description.SlotsNumber = slotsNumber;
             }
@@ -74,7 +80,7 @@ namespace Queuer
                 InputError = true;
             }
             int queueSize;
-            if(Int32.TryParse(machineParams[2], out queueSize))
+            if(Int32.TryParse(machineParams[3], out queueSize))
             {
                 description.QueueSize = queueSize;
             }
@@ -84,7 +90,7 @@ namespace Queuer
                 InputError = true;
             }
             
-            string  queueDiscipline = machineParams[3];
+            string  queueDiscipline = machineParams[4];
             Regex regex = new Regex(@"\w*");
             Match match = regex.Match(queueDiscipline);
             if (match.Success)
@@ -97,7 +103,7 @@ namespace Queuer
                 InputError = true;
             }
 
-            string  serviceType = machineParams[4];
+            string  serviceType = machineParams[5];
             match = regex.Match(serviceType);
             if (match.Success)
             {
@@ -110,7 +116,7 @@ namespace Queuer
             }
 
             int  coordinateX;
-            if(Int32.TryParse(machineParams[5], out coordinateX))
+            if(Int32.TryParse(machineParams[6], out coordinateX))
             {
                 description.CoordinateX = coordinateX;
             }
@@ -120,7 +126,7 @@ namespace Queuer
                 InputError = true;
             }
             int  coordinateY;
-            if(Int32.TryParse(machineParams[6], out coordinateY))
+            if(Int32.TryParse(machineParams[7], out coordinateY))
             {
                 description.CoordinateY = coordinateY;
             }
@@ -129,12 +135,21 @@ namespace Queuer
                 description.CoordinateY = -1;
                 InputError = true;
             }
-            int route;
-            for (int i = 7; i < machineParams.Length; i++)
+            int destination;
+            double probability;
+            for (int i = 8; i < machineParams.Length; i+=2)
             {
-                if(Int32.TryParse(machineParams[i], out route))
+                bool destinationParsed;
+                bool probabilityParsed;
+                destinationParsed = Int32.TryParse(machineParams[i], out destination);
+                probabilityParsed = Double.TryParse(machineParams[i + 1], NumberStyles.Number, CultureInfo.InvariantCulture, out probability);
+                if(destinationParsed && probabilityParsed)
                 {
-                    description.Routes.Add(route);
+                    description.Routes.Add(new Route
+                    {
+                        Destination = destination,
+                        Probability = probability
+                    });
                 }
                 else
                 {
