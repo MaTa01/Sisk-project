@@ -126,5 +126,11 @@ namespace UnitTests
             }
             Assert.IsFalse(n.isAnyInMachine(), "maszyny powinny byc puste");
         }
+
+        [TestMethod]
+        public void test()
+        {
+            Assert.IsNull(null);
+        }
     }
 }
