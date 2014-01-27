@@ -134,7 +134,15 @@ namespace QueueSimulator
 
         }
 
-        
-    
+        /* Dodatkowe uzytki*/
+
+        public bool isMoveFromBufferToMachinePossible(){
+            return (this.isAnyFreeMachine() && !this.isBufferEmpty());
+        }
+
+        public void moveFromBufferToMachine(){
+            this.addToMachine(this.getFromBuffer());
+        }
+       
     }
 }

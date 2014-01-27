@@ -128,9 +128,42 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void test()
+        public void fullNodeTest()
         {
-            Assert.IsNull(null);
+            mDesc = new MachineDescription();
+            mDesc.Id = 1;
+            mDesc.QueueSize = 0; //infinity queue
+            mDesc.SlotsNumber = 1;
+
+            Node n = new Node(mDesc); // node wg opisu
+            Task t;
+            int systemTime = 0;
+            int rand = (new Random()).Next(1, 100);
+            
+            
+            //dodawanie do Noda zadania
+            systemTime += rand;
+            t = new Task(systemTime);
+
+            if (!n.isBufferFull())
+            {
+                n.addToBuffer(t);
+            } // 
+            Assert.IsFalse(n.isBufferEmpty(),"powinnismy miec task w buforze");
+
+            // tego mozna zrobic fajna funkcje przeniesie z maszyny do bufora
+            if (n.isMoveFromBufferToMachinePossible()) // warunet mozliwy do przesuniecia zadania z bufora do maszyny
+            {
+                n.moveFromBufferToMachine(); // funkacja przenoszaca z bufora do wolnej maszyny
+            }
+            Assert.IsTrue(n.isBufferEmpty(), "po przeniesieniu bufor powinien byc pusty");
+            Assert.IsTrue(n.isAnyInMachine(), "cos powinno byc na maszynach");
+            Assert.IsFalse(n.isAnyFreeMachine(),"powinnysmy miec jedna maszyne i powinna byc zajeta");
+
+            Assert.IsNotNull( n.getReadyTaskFromMachine(systemTime + 60) );
+            Assert.IsTrue(n.isBufferEmpty());
+            Assert.IsFalse(n.isAnyInMachine());
+            Assert.IsTrue(n.isAnyFreeMachine()); 
         }
     }
 }
