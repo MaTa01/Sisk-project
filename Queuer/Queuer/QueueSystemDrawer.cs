@@ -66,11 +66,12 @@ namespace Queuer
                             machineDescriptions[route.Destination - 1].CoordinateY,
                             rectWidth, rectHeight);
                         canvasMQueueSystem.Children.Insert(0, line);
-                        // TODO positions of probability values need change
-                        //textBlockProbability.Margin = new Thickness(desc.CoordinateX + 
-                            //(machineDescriptions[route.Destination - 1].CoordinateX - desc.CoordinateX) / 2, desc.CoordinateY + (machineDescriptions[route.Destination - 1].CoordinateY - desc.CoordinateY) / 2, 0, 0);
-                        //textBlockProbability.Text = route.Probability.ToString();
-                        //canvasMQueueSystem.Children.Add(textBlockProbability);
+                        textBlockProbability.Margin = new Thickness(desc.CoordinateX +
+                            (machineDescriptions[route.Destination - 1].CoordinateX - desc.CoordinateX) / 2 + rectWidth / 2 + 10,
+                            desc.CoordinateY + (machineDescriptions[route.Destination - 1].CoordinateY - desc.CoordinateY) / 2 + rectHeight / 2 + 10,
+                            0, 0);
+                        textBlockProbability.Text = route.Probability.ToString();
+                        canvasMQueueSystem.Children.Add(textBlockProbability);
                     }
                     canvasMQueueSystem.Children.Add(rect);
                     canvasMQueueSystem.Children.Add(textBlock);
