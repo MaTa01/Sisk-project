@@ -8,10 +8,10 @@ namespace QueueSimulator
 {
     class CaseRunner
     {
-        public static void Main(String[] args)
+        /*public static void Main(String[] args)
         {
             CaseRunner.Lab1Zad1a();
-        }
+        }*/
 
         public static void Lab1Zad1a()
         {

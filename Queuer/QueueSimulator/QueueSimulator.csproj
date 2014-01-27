@@ -45,7 +45,7 @@
     <Compile Include="Discipline.cs" />
     <Compile Include="D_discipline.cs" />
     <Compile Include="InsideQueue.cs" />
-    <Compile Include="Machine.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="MachineConnections.cs" />
     <Compile Include="PriorityQueue.cs" />
     <Compile Include="Simulator.cs" />
@@ -53,6 +53,7 @@
     <Compile Include="SytemEvents.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TaskGenerator.cs" />
+    <Compile Include="SimulatorEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

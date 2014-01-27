@@ -19,9 +19,11 @@ namespace QueueSimulator
         int SimulationTime;
 
         TaskGenerator generatorZadan;
-        List<Machine> machines;
+        List<Node> machines;
         
         PriorityQueue<int, Queue<SytemEvents>> kolejka;
+
+        
         
         public Simulator(List<MachineDescription> machinesInSystem,TaskGenerator taskGenerator){
 
@@ -32,7 +34,7 @@ namespace QueueSimulator
 
             generatorZadan = taskGenerator;
             
-            this.machines = Machine.GetMachines(machinesInSystem); // z opisow tworzy liste maszyn
+            
 
             
         }
@@ -41,18 +43,36 @@ namespace QueueSimulator
         public void runSimulator(int limitZadan = 0 ) // 
         {
             // generator Tworzy nowe zadanie
-            Task firstTask =  generatorZadan.getTask(SimulationTime);
+            
+            
             generatorZadan.setLimit(1);
             // tworzy sie nowye
 
-            while (true) // symulacja trwa do momentu zakonczenia przez jeden z waruków
+            // tworzymy kolejke zadan
+            PriorityQueue<int, SimulatorEvent> kolejkaOperacji = new PriorityQueue<int, SimulatorEvent>();
+
+            Task firstTask = generatorZadan.getTask(SimulationTime);
+            kolejkaOperacji.Enqueue(0, new SimulatorEvent(SimulatorEvent.TypZadania.newTask));
+
+            while (!kolejkaOperacji.IsEmpty) // symulacja trwa do momentu zakonczenia przez jeden z waruków
             {
+                SimulatorEvent e = kolejkaOperacji.Dequeue();
+                switch (e.typ)
+                {
+                    case SimulatorEvent.TypZadania.newTask:
+                        // nowe zadanie pojawia sie w systemie wiec dodajemy je do maszyny na liscie z id =1
+                        break;
 
+                }
             }
-
+            Console.Write("asd");
         }
 
-
+        public static void Main(String[] args)
+        {
+            Simulator s = new Simulator(null, null);
+            s.runSimulator();
+        }
         
        
     }

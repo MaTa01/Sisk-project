@@ -5,7 +5,7 @@ using System.Text;
 
 namespace QueueSimulator
 {
-    abstract class InsideQueue<T> // kolejka ktora
+    abstract class InsideQueue<T> : Queue<T>// kolejka ktora
     {
         public abstract void pushToQueue(Task t);
         public abstract Task popFromQueue();
