@@ -15,6 +15,9 @@ namespace QueueSimulator
         bool[] MachineBusyStatus;
         List<Route> routes;
         int NodeID;
+        NodeType nodeType; // okresla node
+
+        enum NodeType { OnlyOne=0, First=1, Middle=2, Last=3 };
 
         public Node(MachineDescription mDesc)
         {
@@ -36,6 +39,8 @@ namespace QueueSimulator
 
             NodeID = mDesc.Id;
 
+            nodeType = (NodeType)mDesc.NodeType;
+
             //nodeType - 0,1,2,3
             // 0- pojedynczy node
             // 1- poczatkowy
@@ -47,6 +52,10 @@ namespace QueueSimulator
             
             // E - exponential - lambda
             // D - arbitralny - constant
+
+            // typ servisu i jego parametr bedzie 
+            // identyfikowal sposob generowania czasu zakonczenia prac
+
 
 
         }

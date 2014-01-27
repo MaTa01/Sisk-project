@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventQueue.cs" />
+    <Compile Include="Event.cs" />
     <Compile Include="FileReader.cs" />
     <Compile Include="MachineDescription.cs" />
     <Compile Include="Node.cs" />

@@ -14,22 +14,27 @@ namespace QueueSimulator
      * obluga priorytetowej koejki operacji kolejki operacji
      * 
      * */
-    class Simulator
+    public class Simulator
     {
         int SimulationTime;
 
         TaskGenerator generatorZadan;
-        List<Node> machines;
+
+        List<Node> nodes;
         
               
         
         public Simulator(List<MachineDescription> machinesInSystem){
 
-            
-            
-            
+            // tu prasujemy liste machinDescription do postaci listy nodów
+            nodes = new List<Node>();
 
-            
+            foreach (MachineDescription md in machinesInSystem)
+            {
+                this.nodes.Add(new Node(md)); 
+            }
+
+            EventQueue eq = EventQueue.Instance;
         }
 
 
@@ -38,6 +43,10 @@ namespace QueueSimulator
             
         }
 
+
+        public int getNumberOfNodes(){
+            return nodes.Count;
+        }
         public static void Main(String[] args)
         {
             
