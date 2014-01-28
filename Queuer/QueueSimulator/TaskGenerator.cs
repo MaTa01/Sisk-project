@@ -33,6 +33,8 @@ namespace QueueSimulator
            
             randTime =0;
             taskCounter = 0;
+            eq = EventQueue.Instance;
+            
         }
         public TaskGenerator(int constant):this()
         {
@@ -76,12 +78,14 @@ namespace QueueSimulator
         public Task getTask(int systemTime) // zwraca 
         {
             Task t = new Task(systemTime);
-            nextEventTime();
+            //nextEventTime();
 
-            Event e = new Event(nextTaskTime);
+            //Event e = new Event(nextTaskTime);
+            Event e = new Event((int)distribution.getTimeOfWork());
             e.setEventType(Event.EventType.NEW_TASK);
+
             
-            eq.addEvent(nextTaskTime, e);
+            eq.addEvent(e); // tu jest eq nullem
             taskCounter++;
 
             return t;

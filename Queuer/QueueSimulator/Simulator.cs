@@ -44,10 +44,10 @@ namespace QueueSimulator
                 this.nodes.Add(new Node(md)); 
             }
             //setListOfNodeStatuses();
-            nodeStatusesList = NodeStatusListSingleton.Instance;
-            foreach(Node n in nodes){
-                nodeStatusesList.Add(n.getNodeStatus());
-            }
+            //nodeStatusesList = NodeStatusListSingleton.Instance;
+            //foreach(Node n in nodes){
+            //    nodeStatusesList.Add(n.getNodeStatus());
+            //}
 
             kolejkaKomunikatow = EventQueue.Instance; // tworzymy kolejke komunikatów
         }
@@ -117,10 +117,10 @@ namespace QueueSimulator
 
                             if(!node.isBufferFull()) // jesli wzielismy zadnie i oproznilismy kolejke trzeba sprawdzic czy jakies zadanie nie czeka w swoim buforze
                             {
-                                tmpEvent = new Event(SimulationTime);
-                                tmpEvent.setEventType(Event.EventType.QUEUE_FREE);
-                                tmpEvent.setMachineId(node.getNodeID());
-                                kolejkaKomunikatow.addEvent(tmpEvent);
+                                //tmpEvent = new Event(SimulationTime);
+                                //tmpEvent.setEventType(Event.EventType.QUEUE_FREE);
+                                //tmpEvent.setMachineId(node.getNodeID());
+                                //kolejkaKomunikatow.addEvent(tmpEvent);
                             }
 
 
@@ -156,8 +156,10 @@ namespace QueueSimulator
                                     break;
                                 }
                             }
-                                                        
-                        
+                            if (i > routes.Count)
+                            {
+                                i--;
+                            }
                              // id noda
                             next_Node = nodes.Find(n => n.getNodeID() == routes.ElementAt(i).Destination);
                             if (!next_Node.isBufferFull()) // jesli bu
@@ -180,25 +182,26 @@ namespace QueueSimulator
                         }
                         break;
 
-                    case Event.EventType.FREE_BUFFER:
-                        //
-                        break;
+                    //case Event.EventType.FREE_BUFFER:
+                    //    // tot jest vim mode, i wchodzisz do pisania a esc wychodzisz
+                    //    //mogę  go wylaczycz jak chcesz
+                    //    break;
 
                 }
 
                 // tutaj trzaba zaktualizowac liste NodeStatus
 
 
-                NodeStatus ns;
-                int j=0;
-                for (int i = 0; i < nodes.Count; i++)
-                {
-                    ns = nodes.ElementAt(i).getNodeStatus();
+                //NodeStatus ns;
+                //int j=0;
+                //for (int i = 0; i < nodes.Count; i++)
+                //{
+                //    ns = nodes.ElementAt(i).getNodeStatus();
                     
-                    nodeStatusesList.ElementAt(i).numberOfJobsInQueue = ns.numberOfJobsInQueue;
+                //    nodeStatusesList.ElementAt(i).numberOfJobsInQueue = ns.numberOfJobsInQueue;
 
-                    // zostala aktualizacja maszyn
-                }
+                //    // zostala aktualizacja maszyn
+                //}
 
             }
             

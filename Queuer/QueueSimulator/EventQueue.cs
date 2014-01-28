@@ -36,7 +36,8 @@ namespace QueueSimulator
 
         public Event getEvent()
         {
-            return events.Dequeue();
+            return events.Dequeue();// dequeue nie zabiera pierwszego obiektu z kolejki
+            
         }
 
         public bool isQueueEmpty()

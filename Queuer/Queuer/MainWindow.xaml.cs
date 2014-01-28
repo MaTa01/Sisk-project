@@ -95,7 +95,8 @@ namespace Queuer
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
         {
-            ; // TODO
+            Simulator simulator = new Simulator(machineDescriptions); // TODO
+            simulator.runSimulator();
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
@@ -106,6 +107,7 @@ namespace Queuer
                 SaveAs();
         }
 
+      
         private void ButtonSaveAs_Click(object sender, RoutedEventArgs e)
         {
             SaveAs();

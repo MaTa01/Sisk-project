@@ -70,6 +70,7 @@ namespace QueueSimulator
                 /*
                 *  Traz mozemy wywolywac dla kazdej maszyny service.getTimeOfWork()
                 */
+                default:
                 case "D":
                     serviceType = new D_constantDistribution(Int32.Parse(mDesc.ServiceTypeParameter));
                     break;
@@ -180,7 +181,7 @@ namespace QueueSimulator
                 }
                 i++;
             }
-            return null;
+            return null; // ten return moze duzo niszczyc
 
         }
 
@@ -242,6 +243,7 @@ namespace QueueSimulator
         public int getWorkTime()
         {
             return (int)this.serviceType.getTimeOfWork();
+            //jesli service type tu null
         }
 
         
