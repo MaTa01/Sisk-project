@@ -8,6 +8,14 @@ namespace QueueSimulator
 {
     public class Node 
     {
+        //nodeType - 0,1,2,3
+        // 0- pojedynczy node
+        // 1- poczatkowy
+        // 2-srodkowy
+        // 3- koncowy
+        enum NodeType { OnlyOne = 0, First = 1, Middle = 2, Last = 3 };
+
+
         int BufferSize;
         Queue<Task> Buffer; // Domyslnie Fifo
 
@@ -17,7 +25,12 @@ namespace QueueSimulator
         int NodeID;
         NodeType nodeType; // okresla node
 
-        enum NodeType { OnlyOne=0, First=1, Middle=2, Last=3 };
+        DistributionType serviceType;
+
+        public List<Route> getRoutes()
+        {
+            return routes;
+        }
 
         public Node(MachineDescription mDesc)
         {
@@ -41,11 +54,7 @@ namespace QueueSimulator
 
             nodeType = (NodeType)mDesc.NodeType;
 
-            //nodeType - 0,1,2,3
-            // 0- pojedynczy node
-            // 1- poczatkowy
-            // 2-srodkowy
-            // 3- koncowy
+            
 
             //service dyspline - FIFO/LIFO/PS
             // service Type - jaki jest rozklad obslugi 
@@ -56,7 +65,20 @@ namespace QueueSimulator
             // typ servisu i jego parametr bedzie 
             // identyfikowal sposob generowania czasu zakonczenia prac
 
+            switch (mDesc.ServiceType)
+            {
+                /*
+                *  Traz mozemy wywolywac dla kazdej maszyny service.getTimeOfWork()
+                */
+                case "D":
+                    serviceType = new D_constantDistribution(Int32.Parse(mDesc.ServiceTypeParameter));
+                    break;
+                case "E":
+                    serviceType = new ExpDistribution(Double.Parse(mDesc.ServiceTypeParameter));
+                    break;
+            }
 
+            
 
         }
 
@@ -179,6 +201,32 @@ namespace QueueSimulator
                 ns.machineWorkingStatuses.Add(b);
             }
             return ns;
+        }
+
+        public NodeStatus setNodeStatus()
+        {
+            NodeStatus ns = new NodeStatus();
+            ns.numberOfJobsInQueue = this.BufferSize;
+            foreach (bool b in MachineBusyStatus)
+            {
+                ns.machineWorkingStatuses.Add(b);
+            }
+            return ns;
+        }
+
+        public int getNodeType()
+        {
+            return (int)this.nodeType;
+        }
+
+        public int getNodeID()
+        {
+            return this.NodeID;
+        }
+
+        public int getWorkTime()
+        {
+            return (int)this.serviceType.getTimeOfWork();
         }
     }
 }

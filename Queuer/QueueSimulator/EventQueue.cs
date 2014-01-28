@@ -29,9 +29,19 @@ namespace QueueSimulator
             events.Enqueue(timeOfEvent, e);
         }
 
+        public void addEvent(Event e)
+        {
+            events.Enqueue(e.getTime(), e);
+        }
+
         public Event getEvent()
         {
             return events.Dequeue();
+        }
+
+        public bool isQueueEmpty()
+        {
+            return events.IsEmpty;
         }
     }
 }

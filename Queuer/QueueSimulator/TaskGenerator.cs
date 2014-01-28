@@ -18,8 +18,11 @@ namespace QueueSimulator
         GeneratorType typGeneratora;
         int nextTaskTime;
         int lastTasktime;
-        int constTime;
+        
         int randTime;
+
+        DistributionType distribution;
+        EventQueue eq;
 
         int taskCounter;
 
@@ -27,22 +30,28 @@ namespace QueueSimulator
         private TaskGenerator(){
             nextTaskTime =0;
             lastTasktime =0;
-            constTime =0;
+           
             randTime =0;
             taskCounter = 0;
         }
         public TaskGenerator(int constant):this()
         {
-            typGeneratora = GeneratorType.Constant;
-            constTime = constant;
+            
 
+            distribution = new D_constantDistribution(constant);
         }
 
-        
+        public TaskGenerator(float expectedValue)
+            : this()
+        {
+            
+            
+            distribution = new ExpDistribution(expectedValue);
+        }
 
         public Task getTask(){ // pierwszy task oznacza wzgledny czas systemu =0
             
-            int _time;
+            double _time;
 
             if (taskCounter == 0)
             {
@@ -53,30 +62,45 @@ namespace QueueSimulator
                 _time = nextTaskTime;
             }
             
-            Task t = new Task(_time); // tworzymy nowy task
+            Task t = new Task((int)_time); // tworzymy nowy task
             taskCounter++;
 
-            lastTasktime = _time;
+            lastTasktime = (int)_time;
+            
             nextEventTime();
 
             return t;
 
         }
 
-       
+        public Task getTask(int systemTime) // zwraca 
+        {
+            Task t = new Task(systemTime);
+            nextEventTime();
 
-        private void nextEventTime(){
-            switch (typGeneratora)
-            {
-                case GeneratorType.Constant:
-                    nextTaskTime = lastTasktime + constTime;
-                    break;
+            Event e = new Event(nextTaskTime);
+            e.setEventType(Event.EventType.NEW_TASK);
+            
+            eq.addEvent(nextTaskTime, e);
+            taskCounter++;
 
-                
-            }
+            return t;
         }
 
 
-        
+        private void nextEventTime()
+        {
+            
+            nextTaskTime = lastTasktime + (int)distribution.getTimeOfWork();
+            
+        }
+
+
+
+
+        public int getTaskCounter()
+        {
+            return taskCounter;
+        }
     }
 }

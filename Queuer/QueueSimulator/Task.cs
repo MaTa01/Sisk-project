@@ -12,13 +12,22 @@ namespace QueueSimulator
         private int SystemTime;
         private int ReadyTime;
 
+        private bool isRaedy;
+        private int endTime;
+
         public Task(int SystemTime)
         {
             // TODO: Complete member initialization
             this.SystemTime = SystemTime;
             this.ReadyTime = this.SystemTime + 60; // to pomaga testy przejsc ale bedzie potrzaba jakos to rozwazyc
+            this.isRaedy = false;
         }
 
+
+        public void setReadyTime(int time)
+        {
+            this.ReadyTime = time;
+        }
         public int getReadyTime()
         {
             return ReadyTime;
@@ -29,6 +38,11 @@ namespace QueueSimulator
             return SystemTime;
         }
 
-        
+
+
+        public void setEndTime(int time)
+        {
+            this.endTime = time;
+        }
     }
 }

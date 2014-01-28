@@ -96,7 +96,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void pobieranieZMaszyn()
+        public void pobieranieZMaszyn() // uwaga test korzysta z hardcoda
         {
             mDesc = new MachineDescription();
             mDesc.Id = 1;
@@ -128,7 +128,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void fullNodeTest()
+        public void fullNodeTest() // uwaga test korzysta z hardcoda
         {
             mDesc = new MachineDescription();
             mDesc.Id = 1;
@@ -159,10 +159,10 @@ namespace UnitTests
             Assert.IsTrue(n.isBufferEmpty(), "po przeniesieniu bufor powinien byc pusty");
             Assert.IsTrue(n.isAnyInMachine(), "cos powinno byc na maszynach");
             Assert.IsFalse(n.isAnyFreeMachine(),"powinnysmy miec jedna maszyne i powinna byc zajeta");
-
-            Assert.IsNotNull( n.getReadyTaskFromMachine(systemTime + 60) );
+            //n.getReadyTaskFromMachine(systemTime
+            Assert.IsNotNull( n.getReadyTaskFromMachine(systemTime + 60) , "ASD");
             Assert.IsTrue(n.isBufferEmpty());
-            Assert.IsFalse(n.isAnyInMachine());
+            Assert.IsFalse(n.isAnyInMachine(),"to");
             Assert.IsTrue(n.isAnyFreeMachine()); 
         }
     }

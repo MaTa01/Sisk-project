@@ -56,5 +56,14 @@ namespace UnitTests
             Assert.IsNotNull(x2, "" + x2.getTime());
             Assert.IsNotNull(x1, "" + x1.getTime());
         }
+
+        [TestMethod]
+        public void testrozkladuD()
+        {
+            D_constantDistribution d = new D_constantDistribution(20.0);
+            Assert.AreEqual(20.0, d.getTimeOfWork());
+
+            
+        }
     }
 }

@@ -27,7 +27,7 @@ namespace UnitTests
             for (int i = 0; i < 10; i++)
             {
                 t = tg.getTask();
-                Assert.AreEqual((i + 1) * 10, t.getCreationTime(), "Wygenerowalo task w zlym czasie"+i);
+                Assert.AreEqual((i+1 ) * 10, t.getCreationTime(), "Wygenerowalo task w zlym czasie"+i);
             }
         }
     }
