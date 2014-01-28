@@ -23,6 +23,7 @@ namespace QueueSimulator
         List<Node> nodes;
 
         EventQueue kolejkaKomunikatow;
+        
 
         private List<NodeStatus> nodeStatusesList;
         
@@ -43,6 +44,10 @@ namespace QueueSimulator
                 this.nodes.Add(new Node(md)); 
             }
             //setListOfNodeStatuses();
+            nodeStatusesList = NodeStatusListSingleton.Instance;
+            foreach(Node n in nodes){
+                nodeStatusesList.Add(n.getNodeStatus());
+            }
 
             kolejkaKomunikatow = EventQueue.Instance; // tworzymy kolejke komunikatów
         }
@@ -157,6 +162,13 @@ namespace QueueSimulator
                             next_Node = nodes.Find(n => n.getNodeID() == routes.ElementAt(i).Destination);
                             if (!next_Node.isBufferFull()) // jesli bu
                             {
+                                if (next_Node.isBufferEmpty())
+                                {
+                                    tmpEvent = new Event(actualEvent.getTime());
+                                    tmpEvent.setEventType(Event.EventType.NEW_TASK_ON_MACHINE);
+                                    tmpEvent.setMachineId(next_Node.getNodeID());
+                                    kolejkaKomunikatow.addEvent(tmpEvent);
+                                }
                                 next_Node.addToBuffer( node.getReadyTaskFromMachine(SimulationTime) ); // przejscie 
                             }
                         
@@ -193,6 +205,8 @@ namespace QueueSimulator
         public int getNumberOfNodes(){
             return nodes.Count;
         }
+
+        
         public static void Main(String[] args)
         {
             
