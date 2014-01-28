@@ -169,14 +169,19 @@ namespace QueueSimulator
                                     tmpEvent.setMachineId(next_Node.getNodeID());
                                     kolejkaKomunikatow.addEvent(tmpEvent);
                                 }
-                                next_Node.addToBuffer( node.getReadyTaskFromMachine(SimulationTime) ); // przejscie 
+                                next_Node.addToBuffer(node.getReadyTaskFromMachine(SimulationTime)); // przejscie 
+                            }
+                            else
+                            {
+
+                                node.markReadyTask(SimulationTime);
                             }
                         
                         }
                         break;
 
                     case Event.EventType.FREE_BUFFER:
-
+                        //
                         break;
 
                 }

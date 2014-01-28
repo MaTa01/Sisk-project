@@ -172,7 +172,7 @@ namespace QueueSimulator
             {
                 if (b == true)
                 {
-                    if (time == Slots[i].getReadyTime())
+                    if (time == Slots[i].getReadyTime() || Slots[i].isReady())
                     {
                         MachineBusyStatus[i] = false;
                         return Slots[i];
@@ -182,6 +182,21 @@ namespace QueueSimulator
             }
             return null;
 
+        }
+
+        public void markReadyTask(int time)
+        {
+            int i=0;
+            foreach (bool b in MachineBusyStatus)
+            {
+                if (b == true)
+                {
+                    if (time == Slots[i].getReadyTime())
+                    {
+                        Slots[i].setReady();
+                    }
+                }
+            }
         }
 
         /* Dodatkowe uzytki*/
@@ -228,5 +243,7 @@ namespace QueueSimulator
         {
             return (int)this.serviceType.getTimeOfWork();
         }
+
+        
     }
 }
